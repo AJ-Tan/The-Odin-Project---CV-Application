@@ -1,0 +1,31 @@
+.cv-preview-section {
+  flex: 1;
+
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  margin-block-start: 1rem;
+}
+
+.cv-preview {
+  display: flex;
+  aspect-ratio: 8.5/13;
+  width: 100%;
+  max-width: 40rem;
+  container-type: inline-size;
+  border: 1px solid black;
+
+  .left-section,
+  .right-section {
+    display: flex;
+    flex-direction: column;
+    font-size: 2cqw;
+
+    padding-block: 7cqw;
+  }
+
+  .left-section {
+    flex-shrink: 0;
+    width: 35cqw;
+  }
+}
