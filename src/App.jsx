@@ -1,19 +1,23 @@
 import { useState } from "react";
 import UserInputSection from "./components/User Input Section/UserInputSection";
 import CVPreviewSection from "./components/CV Preview/CVPreviewSection";
+import PageHeader from "./components/PageHeader/PageHeader";
 import "./App.css";
 
 function App() {
   const [userInformation, setUserInformation] = useState(presetData);
 
   return (
-    <div className="page-content">
-      <UserInputSection
-        userInformation={userInformation}
-        setUserInformation={setUserInformation}
-      />
-      <CVPreviewSection userInformation={userInformation} />
-    </div>
+    <>
+      <PageHeader />
+      <div className="page-content">
+        <UserInputSection
+          userInformation={userInformation}
+          setUserInformation={setUserInformation}
+        />
+        <CVPreviewSection userInformation={userInformation} />
+      </div>
+    </>
   );
 }
 
@@ -23,7 +27,7 @@ const cleanData = {
     phone: "",
     email: "",
     address: "",
-    image: "https://ivestp.net/media/photos/2022/user-default2.png",
+    image: "",
   },
   education: {
     school: "",
@@ -54,7 +58,7 @@ const presetData = {
     phone: "09123456789",
     email: "user123@gmail.com",
     address: "Something City",
-    image: "https://ivestp.net/media/photos/2022/user-default2.png",
+    image: "",
   },
   education: {
     school: "Western Mindanao State University",

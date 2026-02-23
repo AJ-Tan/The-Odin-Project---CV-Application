@@ -1,7 +1,8 @@
 import InputGroup from "./InputGroup";
-import { useEffect, useRef } from "react";
+import { useState, useEffect, useRef, memo } from "react";
 
 function WorkExperiences({ data, setUserInformation }) {
+  const [active, setActive] = useState(false);
   const ref = useRef({ respElem: {}, workId: 0, index: 0, setFocus: false });
 
   useEffect(() => {
@@ -155,95 +156,114 @@ function WorkExperiences({ data, setUserInformation }) {
     }));
   };
 
+  const toggleActive = () => {
+    setActive((prev) => !prev);
+  };
+
   return (
-    <div className="inputs-work-experiences form-group">
-      <header>
+    <div
+      className={`inputs-work-experiences form-group ${active ? "active" : ""}`}
+    >
+      <header onClick={toggleActive}>
         <h2>Work Experiences</h2>
       </header>
-      <button type="button" onClick={addWork}>
-        Add Experience
-      </button>
-      <div className="input-group">
-        {data.map((work, index) => (
-          <div key={work.id} className="work-experience-container">
-            <header>
-              <h3>Work {index + 1}</h3>
-              <button type="button" onClick={() => removeWork(work.id)}>
-                X
-              </button>
-            </header>
-            <InputGroup
-              id="workPosition"
-              label="Work Position"
-              inputState={work.workPosition}
-              updateState={(key, updateValue) => {
-                updateData(key, updateValue, work.id);
-              }}
-            />
-            <InputGroup
-              id="workCompany"
-              label="Work Company"
-              inputState={work.workCompany}
-              updateState={(key, updateValue) => {
-                updateData(key, updateValue, work.id);
-              }}
-            />
-            <div className="year-group">
-              <InputGroup
-                id="workStartYear"
-                label="Start Year"
-                inputType="text"
-                inputState={work.workStartYear}
-                updateState={(key, updateValue) => {
-                  updateData(key, updateValue, work.id);
-                }}
-              />
-              <InputGroup
-                id="workEndYear"
-                label="End Year"
-                inputType="text"
-                inputState={work.workEndYear}
-                updateState={(key, updateValue) => {
-                  updateData(key, updateValue, work.id);
-                }}
-              />
-              <div className="work-responsibilities-container">
-                <header>
-                  <h3>Work Responsibilities</h3>
-                </header>
-                <div className="multi-input">
-                  {work.workResponsibilities.map((resp, index) => (
-                    <label key={resp.id}>
-                      <div className="multi-input-container">
-                        <textarea
-                          ref={(el) => {
-                            if (!ref.current.respElem[work.id]) {
-                              ref.current.respElem[work.id] = [];
-                            }
-                            ref.current.respElem[work.id][index] = el;
-                          }}
-                          value={resp.value}
-                          onFocus={() => handleFocus(work.id, index)}
-                          onKeyDown={(e) => handleKeydown(e, work.id, resp.id)}
-                          onChange={(e) =>
-                            updateResponsibility(
-                              work.id,
-                              resp.id,
-                              e.target.value,
-                            )
-                          }
-                        ></textarea>
+      <div className="input-group-wrapper">
+        <div className="input-group">
+          <div className="input-group-inner">
+            <button className="btn-add-work" type="button" onClick={addWork}>
+              Add Experience
+            </button>
+
+            <div className="work-experiences">
+              {data.map((work, index) => (
+                <div key={work.id} className="work-experience-container">
+                  <header>
+                    <h3>Work {index + 1}</h3>
+                    <button
+                      className="btn-close"
+                      type="button"
+                      onClick={() => removeWork(work.id)}
+                    >
+                      X
+                    </button>
+                  </header>
+                  <InputGroup
+                    id="workPosition"
+                    label="Work Position"
+                    inputState={work.workPosition}
+                    updateState={(key, updateValue) => {
+                      updateData(key, updateValue, work.id);
+                    }}
+                  />
+                  <InputGroup
+                    id="workCompany"
+                    label="Work Company"
+                    inputState={work.workCompany}
+                    updateState={(key, updateValue) => {
+                      updateData(key, updateValue, work.id);
+                    }}
+                  />
+                  <div className="year-group">
+                    <InputGroup
+                      id="workStartYear"
+                      label="Start Year"
+                      inputType="text"
+                      inputState={work.workStartYear}
+                      updateState={(key, updateValue) => {
+                        updateData(key, updateValue, work.id);
+                      }}
+                    />
+                    <InputGroup
+                      id="workEndYear"
+                      label="End Year"
+                      inputType="text"
+                      inputState={work.workEndYear}
+                      updateState={(key, updateValue) => {
+                        updateData(key, updateValue, work.id);
+                      }}
+                    />
+                    <div className="work-responsibilities-container">
+                      <header>
+                        <h3>Work Responsibilities</h3>
+                      </header>
+                      <div className="multi-input">
+                        {work.workResponsibilities.map((resp, index) => (
+                          <label key={resp.id}>
+                            <div className="multi-input-container">
+                              <textarea
+                                ref={(el) => {
+                                  if (!ref.current.respElem[work.id]) {
+                                    ref.current.respElem[work.id] = [];
+                                  }
+                                  ref.current.respElem[work.id][index] = el;
+                                }}
+                                value={resp.value}
+                                onFocus={() => handleFocus(work.id, index)}
+                                onKeyDown={(e) =>
+                                  handleKeydown(e, work.id, resp.id)
+                                }
+                                onChange={(e) =>
+                                  updateResponsibility(
+                                    work.id,
+                                    resp.id,
+                                    e.target.value,
+                                  )
+                                }
+                              ></textarea>
+                            </div>
+                          </label>
+                        ))}
                       </div>
-                    </label>
-                  ))}
+                    </div>
+                  </div>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
-        ))}
+        </div>
       </div>
     </div>
   );
 }
 
-export default WorkExperiences;
+export default memo(WorkExperiences);

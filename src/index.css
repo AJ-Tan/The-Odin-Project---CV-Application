@@ -21,7 +21,23 @@
 
 :root {
   --bg-primary: rgb(235, 229, 220);
+  --bg-secondary: rgb(44, 44, 44);
   --form-group-bg: gray;
+
+  --page-header-bg: #0f172a; /* Slate 900 */
+  --page-header-text: #f8fafc; /* Very light */
+
+  --btn-primary: #2563eb; /* Blue 600 */
+  --btn-primary-hover: #1d4ed8; /* Blue 700 */
+  --btn-primary-text: #ffffff;
+
+  --header-bg: #1e293b;
+  --header-text: #f1f5f9;
+  --header-bg-hover: rgb(47, 61, 82);
+  --header-text-hover: #ffffff;
+  --input-bg: #f8fafc;
+  --transition-fast: 0.15s;
+  --transition-slow: 0.3s;
 }
 
 a {
@@ -56,12 +72,16 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+
+button {
+  border: none;
+  background-color: var(--btn-primary);
+  color: var(--btn-primary-text);
+  transition: background-color var(--transition-fast) ease-in-out;
+  &:hover {
+    background-color: var(--btn-primary-hover);
+    outline: none;
+  }
 }
 
 input {
@@ -94,6 +114,5 @@ img {
     color: #747bff;
   }
   button {
-    background-color: #f9f9f9;
   }
 }

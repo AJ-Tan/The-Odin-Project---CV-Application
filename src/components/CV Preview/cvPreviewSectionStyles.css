@@ -4,7 +4,9 @@
   display: flex;
   justify-content: center;
   align-items: start;
-  margin-block-start: 1rem;
+  padding-block: 1rem;
+  padding-inline: 1rem;
+  background-color: var(--bg-secondary);
 }
 
 .cv-preview {
@@ -13,7 +15,6 @@
   width: 100%;
   max-width: 40rem;
   container-type: inline-size;
-  border: 1px solid black;
 
   .left-section,
   .right-section {
@@ -27,5 +28,9 @@
   .left-section {
     flex-shrink: 0;
     width: 35cqw;
+  }
+
+  .right-section {
+    background-color: white;
   }
 }

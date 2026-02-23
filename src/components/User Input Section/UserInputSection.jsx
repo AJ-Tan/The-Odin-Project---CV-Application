@@ -21,12 +21,12 @@ function UserInputSection({ userInformation, setUserInformation }) {
           data={userInformation.education}
           setUserInformation={setUserInformation}
         />
-        <Skills
-          data={userInformation.skills}
-          setUserInformation={setUserInformation}
-        />
         <ProfessionalSummary
           data={userInformation.professionalSummary}
+          setUserInformation={setUserInformation}
+        />
+        <Skills
+          data={userInformation.skills}
           setUserInformation={setUserInformation}
         />
         <WorkExperiences

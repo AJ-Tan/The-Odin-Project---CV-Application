@@ -1,7 +1,9 @@
-import { useEffect, useRef, memo } from "react";
+import { useState, useEffect, useRef, memo } from "react";
 
 function Skills({ data, setUserInformation }) {
+  const [active, setActive] = useState(false);
   const inputRef = useRef({ el: [], index: 0, id: null });
+
   useEffect(() => {
     if (inputRef.current.el[inputRef.current.index]) {
       inputRef.current.el[inputRef.current.index].focus();
@@ -82,27 +84,37 @@ function Skills({ data, setUserInformation }) {
     }));
   };
 
+  const toggleActive = () => {
+    setActive((prev) => !prev);
+  };
+
   return (
-    <div className="inputs-skills form-group">
-      <header>
+    <div className={`inputs-skills form-group ${active ? "active" : ""}`}>
+      <header onClick={toggleActive}>
         <h2>Skills</h2>
       </header>
-      <div className="multi-input">
-        {data.map(({ id, value }, index) => (
-          <label key={id}>
-            <div className="multi-input-container">
-              <input
-                id={id}
-                key={id}
-                ref={(el) => (inputRef.current.el[index] = el)}
-                value={value}
-                onChange={(e) => updateData(e, id)}
-                onKeyDown={(e) => handleKeydown(e, id)}
-                onFocus={() => handleFocus(index)}
-              />
+      <div className="input-group-wrapper">
+        <div className="input-group">
+          <div className="input-group-inner">
+            <div className="multi-input">
+              {data.map(({ id, value }, index) => (
+                <label key={id}>
+                  <div className="multi-input-container">
+                    <input
+                      id={id}
+                      key={id}
+                      ref={(el) => (inputRef.current.el[index] = el)}
+                      value={value}
+                      onChange={(e) => updateData(e, id)}
+                      onKeyDown={(e) => handleKeydown(e, id)}
+                      onFocus={() => handleFocus(index)}
+                    />
+                  </div>
+                </label>
+              ))}
             </div>
-          </label>
-        ))}
+          </div>
+        </div>
       </div>
     </div>
   );
